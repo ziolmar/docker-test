@@ -1,0 +1,18 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+    - "3000:3000"
+    volumes:
+    - .:/code
+    - logvolume01:/var/log
+    links:
+    - mongodb
+    environment:
+      - SECRET_KEY_BASE="1ff67bd2b8c0497e14f1da1a296dbdd43ada5148b1a881f15c8fc5e2856b889697b6098aaed30c4b5f80de7e4e5c71c148984ed1fe67d346936e25f9a10fccdc"
+      - RAILS_LOG_TO_STDOUT=true
+  mongodb:
+    image: mongo:3.4.2
+volumes:
+  logvolume01: {}
