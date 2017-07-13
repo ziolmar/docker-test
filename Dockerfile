@@ -1,15 +1,13 @@
-FROM ruby:2.3.3-alpine
+FROM ruby:2.3.3
 
-RUN apk update && apk --update add libstdc++ tzdata nodejs
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
 ENV RAILS_ENV development
 
 ADD Gemfile /app/  
 ADD Gemfile.lock /app/
 
-RUN apk --update add --virtual build-dependencies build-base ruby-dev openssl-dev libxml2-dev libxslt-dev \  
-    libc-dev linux-headers nodejs tzdata sqlite sqlite-dev && \    
-    gem install bundler && \
+RUN gem install bundler && \
     cd /app ; bundle config build.nokogiri --use-system-libraries && bundle install
 
 ADD . /app  
