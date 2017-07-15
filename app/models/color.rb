@@ -1,5 +1,5 @@
 class Color
-  # include Mongoid::Document
+  include Mongoid::Document
 
-  # field :value, type: String
+  field :value, type: String
 end
